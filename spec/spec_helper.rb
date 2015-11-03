@@ -1,4 +1,3 @@
-require 'rubygems'
-
-require 'rails/version'
 require 'ammeter/init'
+require 'rails/version'
+require 'rubygems'
