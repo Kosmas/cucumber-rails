@@ -5,6 +5,11 @@
  * Allow cucumber 2 ( [#293] (https://github.com/cucumber/cucumber-rails/pull/293) Thomas Walpole )
  * Add rails 4.2 to test matrix ( [#293] (https://github.com/cucumber/cucumber-rails/pull/293) Thomas Walpole )
  * Depend on railties instead of rails ( [#294] (https://github.com/cucumber/cucumber-rails/pull/294) Alexander Lang )
+ * Fix failing Travis CI tests ( [#305] (https://github.com/cucumber/cucumber-rails/pull/305) Matijs van Zuijlen )
+ * Allow any cucumber < 3 ( [#306] (https://github.com/cucumber/cucumber-rails/pull/306) Matijs van Zuijlen )
+ * Add annotations configuration in generator ( [#292] (https://github.com/cucumber/cucumber-rails/pull/292) Bob Showalter )
+ * Expand support to include mime-types 3 ( [#304] (https://github.com/cucumber/cucumber-rails/pull/304) Austin Ziegler )
+ * Replace badges with SVG versions ( [#307] (https://github.com/cucumber/cucumber-rails/pull/307) Kevin Goslar )
 
 ## [v1.4.2](https://github.com/cucumber/cucumber-rails/compare/1.4.1...v1.4.2) (2014-10-09)
 
