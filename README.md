@@ -10,8 +10,6 @@ Cucumber-Rails brings Cucumber to Rails 3.x and 4.x. For Rails 2.3.x support, se
 
 ## Installation
 
-test for travis build
-
 Before you can use the generator, add the gem to your project's Gemfile as follows:
 
     group :test do
