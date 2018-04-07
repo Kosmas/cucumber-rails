@@ -1,10 +1,9 @@
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.2.1
-
-# for use with container infrastructure
-sudo: false
+  - 2.2.9
+  - 2.3.6
+  - 2.4.3
+  - 2.5.0
+  - ruby-head
 
 # whitelist
 branches:
@@ -12,43 +11,29 @@ branches:
     - master
 
 gemfile:
-  - gemfiles/capybara_1_1.gemfile
+  - gemfiles/rails_5_1.gemfile
+  - gemfiles/rails_5_0.gemfile
   - gemfiles/rails_4_2.gemfile
   - gemfiles/rails_4_1.gemfile
   - gemfiles/rails_4_0.gemfile
-  - gemfiles/rails_3_2.gemfile
-  - gemfiles/rails_3_1.gemfile
-  - gemfiles/rails_3_0.gemfile
 
 matrix:
+  fast_finish: true
   exclude:
-    - rvm: 2.0.0
-      gemfile: gemfiles/capybara_1_1.gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/rails_3_0.gemfile
-
-    - rvm: 2.2.1
-      gemfile: gemfiles/capybara_1_1.gemfile
-    - rvm: 2.2.1
+    - rvm: 2.4.3
       gemfile: gemfiles/rails_4_0.gemfile
-    - rvm: 2.2.1
-      gemfile: gemfiles/rails_3_2.gemfile
-    - rvm: 2.2.1
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: 2.2.1
-      gemfile: gemfiles/rails_3_0.gemfile
+    - rvm: 2.4.3
+      gemfile: gemfiles/rails_4_1.gemfile
+    - rvm: 2.5.0
+      gemfile: gemfiles/rails_4_0.gemfile
+    - rvm: 2.5.0
+      gemfile: gemfiles/rails_4_1.gemfile
+
+    - rvm: ruby-head
+      gemfile: gemfiles/rails_4_0.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/rails_4_1.gemfile
+  allow_failures:
+    - rvm: ruby-head
 
 before_install: gem update --remote bundler
-
-# Needed for selenium browser
-before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-
-notifications:
-  email:
-    - kosmas@mach7x.com
-#  irc:
-#    - "irc.freenode.org#cucumber"

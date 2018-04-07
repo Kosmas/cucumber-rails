@@ -1,11 +1,15 @@
 module CucumberRailsHelper
   def rails_new(options = {})
     options[:name] ||= 'test_app'
-    command = run "bundle exec rails new #{options[:name]} --skip-test-unit --skip-spring #{options[:args]}"
-    assert_partial_output('README', all_output)
-    assert_success(true)
+    command = run "bundle exec rails new #{options[:name]} --skip-bundle --skip-test-unit --skip-spring #{options[:args]}"
+    expect(command).to have_output /README/
+    expect(last_command_started).to be_successfully_executed
     cd options[:name]
-    set_environment_variable 'BUNDLE_GEMFILE', 'Gemfile'
+    delete_environment_variable 'RUBYOPT'
+    delete_environment_variable 'BUNDLE_BIN_PATH'
+    delete_environment_variable 'BUNDLE_GEMFILE'
+
+    run_simple 'bundle install'
   end
 
   def install_cucumber_rails(*options)
@@ -14,11 +18,22 @@ module CucumberRailsHelper
     else
       gem 'cucumber-rails' , group: :test, require: false, path: "#{File.expand_path('.')}"
     end
-    gem 'capybara', group: :test
+    # From Rails 5.1 some gems are already part of the Gemfile
+    if Gem.loaded_specs['rails'].version < Gem::Version.new('5.1.0')
+      gem 'capybara', group: :test
+      gem 'selenium-webdriver', group: :test
+    end
+
+    gem 'geckodriver-helper', group: :test
     gem 'rspec-rails', group: :test
     gem 'database_cleaner', group: :test unless options.include?(:no_database_cleaner)
     gem 'factory_girl', group: :test unless options.include?(:no_factory_girl)
-    gem 'selenium-webdriver', group: :test
+    # Newer versions of rake remove a method used by RSpec older versions
+    # See https://stackoverflow.com/questions/35893584/nomethoderror-undefined-method-last-comment-after-upgrading-to-rake-11#35893625
+    if Gem::Version.new(RSpec::Support::Version::STRING) < Gem::Version.new('3.4.4')
+      gem 'rake', '< 11.0'
+      run_simple 'bundle update rake --local'
+    end
     run_simple 'bundle exec rails generate cucumber:install'
   end
 
@@ -78,6 +93,19 @@ end
 Given /^I have a "([^"]*)" ActiveRecord model object$/ do |name|
   run_simple("bundle exec rails g model #{name}")
   run_simple('bundle exec rake db:migrate RAILS_ENV=test')
+end
+
+Given /^I force selenium to run Firefox in headless mode$/ do
+  selenium_config = %{
+    Capybara.register_driver :selenium do |app|
+      browser_options = ::Selenium::WebDriver::Firefox::Options.new()
+      browser_options.args << '--headless'
+  
+      Capybara::Selenium::Driver.new(app, :browser => :firefox, options: browser_options)
+    end
+  }
+
+  step 'I append to "features/support/env.rb" with:', selenium_config
 end
 
 When /^I run the cukes$/ do

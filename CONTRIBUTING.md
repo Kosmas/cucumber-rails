@@ -46,7 +46,7 @@ Now release it
 
 ### NOTE:
 
-If after running the rake release task you get an eror similiar to this:
+If after running the rake release task you get an error similar to this:
 
     rake aborted!
     Couldn't git push. `git push  2>&1' failed with the following output:
@@ -62,11 +62,11 @@ make sure that you have pulled all the recent changes from both the master and t
 To become a release manager, create a pull request adding your name to the list below, and include your Rubygems email address in the ticket. One of the existing Release managers will then add you.
 
 Current release managers:
-  * Matt Wynne
-  * Aslak Hellesøy
   * Kosmas Chatzimichalis
+  * Matt Wynne
+  * Mathieu Jobin
 
 To grant release karma, issue the following command:
 
-    gem owner cucumber --add <NEW OWNER RUBYGEMS EMAIL>
+    gem owner cucumber-rails --add <NEW OWNER RUBYGEMS EMAIL>
 

@@ -4,9 +4,9 @@
 [![Build Status](https://secure.travis-ci.org/cucumber/cucumber-rails.svg?branch=master)](http://travis-ci.org/cucumber/cucumber-rails)
 [![Code Climate](https://codeclimate.com/github/cucumber/cucumber-rails.svg)](https://codeclimate.com/github/cucumber/cucumber-rails)
 [![Dependency Status](https://gemnasium.com/Kosmas/cucumber-rails.svg)](https://gemnasium.com/Kosmas/cucumber-rails)
-[![PullReview stats](https://www.pullreview.com/github/cucumber/cucumber-rails/badges/master.svg?)](https://www.pullreview.com/github/cucumber/cucumber-rails/reviews/master)
+[![Open Source Helpers](https://www.codetriage.com/cucumber/cucumber-rails/badges/users.svg)](https://www.codetriage.com/cucumber/cucumber-rails)
 
-Cucumber-Rails brings Cucumber to Rails 3.x and 4.x. For Rails 2.3.x support, see the [rails-2.3.x branch](https://github.com/cucumber/cucumber-rails/tree/rails-2.3.x).
+Cucumber-Rails brings Cucumber to Rails 4.x and 5.x. For Rails 3.x support, use version 1.4.5. For Rails 2.3.x support, see the [rails-2.3.x branch](https://github.com/cucumber/cucumber-rails/tree/rails-2.3.x).
 
 ## Installation
 
@@ -67,7 +67,7 @@ If you know how to fix the bug yourself, make a second commit (after committing 
 
 ### Setting up your environment
 
-I strongly recommend rvm and ruby 1.9.3. When you have that, cd into your cucumber-rails repository and:
+We strongly recommend that you use `rvm` or `rbenv` and ruby `2.2.0`. When you have that, cd into your cucumber-rails repository and:
 
     gem install bundler
     bundle install
@@ -76,22 +76,28 @@ I strongly recommend rvm and ruby 1.9.3. When you have that, cd into your cucumb
 
 With all dependencies installed, all specs and features should pass:
 
-    rake
+    [bundle exec] rake
 
 ### Running Appraisal suite
 
 In order to test against multiple versions of key dependencies, the [Appraisal](https://github.com/thoughtbot/appraisal) is used to generate multiple gemfiles, stored in the `gemfiles/` directory. Normally these will only run on Travis; however, if you want to run the full test suite against all gemfiles, run the following commands:
 
-    appraisal install
-    appraisal rake test
+    [bundle exec] appraisal install
+    [bundle exec] appraisal rake test
 
 To run the suite against a named gemfile, use the following:
 
-    appraisal rails_4_1 rake test
+    [bundle exec] appraisal rails_4_1 rake test
 
 To remove and rebuild the different gemfiles (for example, to update a rails version or its dependencies), use the following:
 
-    appraisal install
+    [bundle exec] appraisal install
+
+If you've changed versions of the dependencies, you may find it helpful to forcefully clean each appraisal's gem lock file in `gemfiles/`. You can do this using:
+
+    [bundle exec] rake clean
+
+
 
 ### Adding dependencies
 

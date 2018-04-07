@@ -34,6 +34,10 @@ Feature: No Database
       gem "cucumber-rails", :group => :test, :path => "../../.."
       gem "capybara", :group => :test
       gem "rspec-rails", :group => :test
+      if RUBY_VERSION >= '2.0.0'
+        gem 'sass-rails'
+        gem 'uglifier'
+      end
       """
     And I write to "app/controllers/posts_controller.rb" with:
       """
